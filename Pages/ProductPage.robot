@@ -1,8 +1,5 @@
 *** Settings ***
-Library    SeleniumLibrary
-Resource    Configs/keywords.robot
-Resource    Pages/LoginPage.robot
-Resource    Pages/HomePage.robot
+Resource    Resource/Resource.robot
 
 *** Variables ***
 ${search_field}    //input[@id='search_product']

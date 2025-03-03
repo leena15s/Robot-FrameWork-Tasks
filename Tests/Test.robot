@@ -1,22 +1,20 @@
 *** Settings ***
-Library  SeleniumLibrary
-Resource    Pages/HomePage.robot
-Resource    Pages/LoginPage.robot
-Library     CSVLibrary
-Resource    Pages/ProductPage.robot
+Resource    Resource/Resource.robot
 
+Test Setup    Open Website Homepage
+Test Teardown    Close Browser
 
 *** Test Cases ***
 
 TC01 Verify login success
-    Open Website Homepage
+#    Open Website Homepage
     Navigate To Login Page
     Enter valid credentials
     Verify login success
 
 
 TC02 Login Test with DDT
-    Open Website Homepage
+#    Open Website Homepage
     Navigate To Login Page
     Login With Multiple Users From CSV (DDT)
 
@@ -29,3 +27,4 @@ TC03 END TO END
     Continues to checkout
     Sleep    3s
     Close Browser
+

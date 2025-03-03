@@ -1,6 +1,6 @@
 *** Settings ***
-Library  SeleniumLibrary
-Resource    Configs/keywords.robot
+Resource    Resource/Resource.robot
+
 
 *** Variables ***
 ${URL}         https://www.automationexercise.com/

@@ -1,7 +1,5 @@
 *** Settings ***
-Library    SeleniumLibrary
-Resource    Configs/keywords.robot
-Library    CSVLibrary
+Resource    Resource/Resource.robot
 
 
 

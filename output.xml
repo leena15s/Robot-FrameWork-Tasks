@@ -1,23 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 7.2.2 (Python 3.13.1 on win32)" generated="2025-02-26T13:35:26.982075" rpa="false" schemaversion="5">
+<robot generator="Robot 7.2.2 (Python 3.13.1 on win32)" generated="2025-03-03T14:00:58.007269" rpa="false" schemaversion="5">
 <suite id="s1" name="AlmosaferRobotframeWork" source="C:\Users\Leena\PycharmProjects\AlmosaferRobotframeWork">
 <suite id="s1-s1" name="Tests" source="C:\Users\Leena\PycharmProjects\AlmosaferRobotframeWork\Tests">
 <suite id="s1-s1-s1" name="Test" source="C:\Users\Leena\PycharmProjects\AlmosaferRobotframeWork\Tests\Test.robot">
-<test id="s1-s1-s1-t1" name="TC03 END TO END" line="23">
+<test id="s1-s1-s1-t1" name="TC03 END TO END" line="25">
+<kw name="Open Website Homepage" owner="HomePage" type="SETUP">
+<kw name="Open Browser And Maximize" owner="keywords">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2025-03-03T14:00:58.397444" level="INFO">Opening browser 'Chrome' to base url 'https://www.automationexercise.com/'.</msg>
+<arg>${url}</arg>
+<arg>${browser}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2025-03-03T14:00:58.397099" elapsed="2.814878"/>
+</kw>
+<arg>${URL}</arg>
+<status status="PASS" start="2025-03-03T14:00:58.396041" elapsed="2.816298"/>
+</kw>
+<status status="PASS" start="2025-03-03T14:00:58.395545" elapsed="2.816916"/>
+</kw>
 <kw name="TC01 Verify login success" owner="ProductPage">
 <kw name="Open Website Homepage" owner="HomePage">
 <kw name="Open Browser And Maximize" owner="keywords">
 <kw name="Open Browser" owner="SeleniumLibrary">
-<msg time="2025-02-26T13:35:27.470491" level="INFO">Opening browser 'Chrome' to base url 'https://www.automationexercise.com/'.</msg>
+<msg time="2025-03-03T14:01:01.217857" level="INFO">Opening browser 'Chrome' to base url 'https://www.automationexercise.com/'.</msg>
 <arg>${url}</arg>
 <arg>${browser}</arg>
 <doc>Opens a new browser instance to the optional ``url``.</doc>
-<status status="PASS" start="2025-02-26T13:35:27.470116" elapsed="4.626152"/>
+<status status="PASS" start="2025-03-03T14:01:01.217422" elapsed="4.015551"/>
 </kw>
 <arg>${URL}</arg>
-<status status="PASS" start="2025-02-26T13:35:27.469202" elapsed="4.627261"/>
+<status status="PASS" start="2025-03-03T14:01:01.216295" elapsed="4.016942"/>
 </kw>
-<status status="PASS" start="2025-02-26T13:35:27.468955" elapsed="4.627589"/>
+<status status="PASS" start="2025-03-03T14:01:01.215454" elapsed="4.017875"/>
 </kw>
 <kw name="Navigate To Login Page" owner="HomePage">
 <kw name="Wait And Click" owner="keywords">
@@ -25,19 +39,19 @@
 <arg>${locator}</arg>
 <arg>timeout=${timeout}</arg>
 <doc>Waits until the element ``locator`` is visible.</doc>
-<status status="PASS" start="2025-02-26T13:35:32.097328" elapsed="0.080631"/>
+<status status="PASS" start="2025-03-03T14:01:05.234078" elapsed="0.053057"/>
 </kw>
 <kw name="Click Element" owner="SeleniumLibrary">
-<msg time="2025-02-26T13:35:32.178800" level="INFO">Clicking element '//*[contains(text(), "Signup / Login")]'.</msg>
+<msg time="2025-03-03T14:01:05.287659" level="INFO">Clicking element '//*[contains(text(), "Signup / Login")]'.</msg>
 <arg>${locator}</arg>
 <doc>Click the element identified by ``locator``.</doc>
-<status status="PASS" start="2025-02-26T13:35:32.178334" elapsed="3.477602"/>
+<status status="PASS" start="2025-03-03T14:01:05.287388" elapsed="2.926631"/>
 </kw>
 <arg>${Login_btn}</arg>
 <arg>5s</arg>
-<status status="PASS" start="2025-02-26T13:35:32.097033" elapsed="3.559041"/>
+<status status="PASS" start="2025-03-03T14:01:05.233797" elapsed="2.980394"/>
 </kw>
-<status status="PASS" start="2025-02-26T13:35:32.096744" elapsed="3.559398"/>
+<status status="PASS" start="2025-03-03T14:01:05.233530" elapsed="2.980730"/>
 </kw>
 <kw name="Enter valid credentials" owner="LoginPage">
 <kw name="Wait And Input Text" owner="keywords">
@@ -45,64 +59,64 @@
 <arg>${locator}</arg>
 <arg>timeout=${timeout}</arg>
 <doc>Waits until the element ``locator`` is visible.</doc>
-<status status="PASS" start="2025-02-26T13:35:35.656933" elapsed="0.025146"/>
+<status status="PASS" start="2025-03-03T14:01:08.215100" elapsed="0.036659"/>
 </kw>
 <kw name="Input Text" owner="SeleniumLibrary">
-<msg time="2025-02-26T13:35:35.682954" level="INFO">Typing text 'john.doe@automation.com' into text field '//input[@data-qa="login-email"]'.</msg>
+<msg time="2025-03-03T14:01:08.252439" level="INFO">Typing text 'john.doe@automation.com' into text field '//input[@data-qa="login-email"]'.</msg>
 <arg>${locator}</arg>
 <arg>${text}</arg>
 <doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<status status="PASS" start="2025-02-26T13:35:35.682546" elapsed="0.092077"/>
+<status status="PASS" start="2025-03-03T14:01:08.252059" elapsed="0.370237"/>
 </kw>
 <arg>${email_login}</arg>
 <arg>${valid_email}</arg>
-<status status="PASS" start="2025-02-26T13:35:35.656613" elapsed="0.118150"/>
+<status status="PASS" start="2025-03-03T14:01:08.214777" elapsed="0.407791"/>
 </kw>
 <kw name="Wait And Input Text" owner="keywords">
 <kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
 <arg>${locator}</arg>
 <arg>timeout=${timeout}</arg>
 <doc>Waits until the element ``locator`` is visible.</doc>
-<status status="PASS" start="2025-02-26T13:35:35.775423" elapsed="0.121732"/>
+<status status="PASS" start="2025-03-03T14:01:08.623618" elapsed="0.031124"/>
 </kw>
 <kw name="Input Text" owner="SeleniumLibrary">
-<msg time="2025-02-26T13:35:35.897645" level="INFO">Typing text 'SecurePassword123' into text field '//input[@data-qa="login-password"]'.</msg>
+<msg time="2025-03-03T14:01:08.655575" level="INFO">Typing text 'SecurePassword123' into text field '//input[@data-qa="login-password"]'.</msg>
 <arg>${locator}</arg>
 <arg>${text}</arg>
 <doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<status status="PASS" start="2025-02-26T13:35:35.897371" elapsed="0.083789"/>
+<status status="PASS" start="2025-03-03T14:01:08.655118" elapsed="0.215795"/>
 </kw>
 <arg>${password_login}</arg>
 <arg>${valid_password}</arg>
-<status status="PASS" start="2025-02-26T13:35:35.774997" elapsed="0.206501"/>
+<status status="PASS" start="2025-03-03T14:01:08.622931" elapsed="0.248201"/>
 </kw>
 <kw name="Wait And Click" owner="keywords">
 <kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
 <arg>${locator}</arg>
 <arg>timeout=${timeout}</arg>
 <doc>Waits until the element ``locator`` is visible.</doc>
-<status status="PASS" start="2025-02-26T13:35:35.982508" elapsed="0.021106"/>
+<status status="PASS" start="2025-03-03T14:01:08.872057" elapsed="0.050061"/>
 </kw>
 <kw name="Click Element" owner="SeleniumLibrary">
-<msg time="2025-02-26T13:35:36.004272" level="INFO">Clicking element '//button[@data-qa="login-button"]'.</msg>
+<msg time="2025-03-03T14:01:08.922854" level="INFO">Clicking element '//button[@data-qa="login-button"]'.</msg>
 <arg>${locator}</arg>
 <doc>Click the element identified by ``locator``.</doc>
-<status status="PASS" start="2025-02-26T13:35:36.003944" elapsed="2.598874"/>
+<status status="PASS" start="2025-03-03T14:01:08.922474" elapsed="3.373926"/>
 </kw>
 <arg>${login-button}</arg>
-<status status="PASS" start="2025-02-26T13:35:35.981979" elapsed="2.621048"/>
+<status status="PASS" start="2025-03-03T14:01:08.871448" elapsed="3.425163"/>
 </kw>
-<status status="PASS" start="2025-02-26T13:35:35.656331" elapsed="2.946799"/>
+<status status="PASS" start="2025-03-03T14:01:08.214478" elapsed="4.082261"/>
 </kw>
 <kw name="Verify login success" owner="LoginPage">
 <kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
 <arg>${logout_btn}</arg>
 <doc>Waits until the element ``locator`` appears on the current page.</doc>
-<status status="PASS" start="2025-02-26T13:35:38.603801" elapsed="0.022244"/>
+<status status="PASS" start="2025-03-03T14:01:12.297580" elapsed="0.012914"/>
 </kw>
-<status status="PASS" start="2025-02-26T13:35:38.603406" elapsed="0.022800"/>
+<status status="PASS" start="2025-03-03T14:01:12.297052" elapsed="0.013612"/>
 </kw>
-<status status="PASS" start="2025-02-26T13:35:27.468576" elapsed="11.157705"/>
+<status status="PASS" start="2025-03-03T14:01:01.213746" elapsed="11.096973"/>
 </kw>
 <kw name="Navigate To Product Page" owner="HomePage">
 <kw name="Wait And Click" owner="keywords">
@@ -110,19 +124,19 @@
 <arg>${locator}</arg>
 <arg>timeout=${timeout}</arg>
 <doc>Waits until the element ``locator`` is visible.</doc>
-<status status="PASS" start="2025-02-26T13:35:38.628229" elapsed="0.040233"/>
+<status status="PASS" start="2025-03-03T14:01:12.311982" elapsed="0.022784"/>
 </kw>
 <kw name="Click Element" owner="SeleniumLibrary">
-<msg time="2025-02-26T13:35:38.668936" level="INFO">Clicking element '//i[contains(@class, 'card_travel')]'.</msg>
+<msg time="2025-03-03T14:01:12.335431" level="INFO">Clicking element '//i[contains(@class, 'card_travel')]'.</msg>
 <arg>${locator}</arg>
 <doc>Click the element identified by ``locator``.</doc>
-<status status="PASS" start="2025-02-26T13:35:38.668685" elapsed="1.145859"/>
+<status status="PASS" start="2025-03-03T14:01:12.335079" elapsed="1.959733"/>
 </kw>
 <arg>${Product_btn}</arg>
 <arg>5s</arg>
-<status status="PASS" start="2025-02-26T13:35:38.627881" elapsed="1.186863"/>
+<status status="PASS" start="2025-03-03T14:01:12.311713" elapsed="1.983237"/>
 </kw>
-<status status="PASS" start="2025-02-26T13:35:38.627509" elapsed="1.187345"/>
+<status status="PASS" start="2025-03-03T14:01:12.311424" elapsed="1.983746"/>
 </kw>
 <kw name="Search for product" owner="ProductPage">
 <kw name="Wait And Input Text" owner="keywords">
@@ -130,116 +144,116 @@
 <arg>${locator}</arg>
 <arg>timeout=${timeout}</arg>
 <doc>Waits until the element ``locator`` is visible.</doc>
-<status status="PASS" start="2025-02-26T13:35:39.817410" elapsed="0.042663"/>
+<status status="PASS" start="2025-03-03T14:01:14.296910" elapsed="0.042268"/>
 </kw>
 <kw name="Input Text" owner="SeleniumLibrary">
-<msg time="2025-02-26T13:35:39.860611" level="INFO">Typing text 'women' into text field '//input[@id='search_product']'.</msg>
+<msg time="2025-03-03T14:01:14.340285" level="INFO">Typing text 'women' into text field '//input[@id='search_product']'.</msg>
 <arg>${locator}</arg>
 <arg>${text}</arg>
 <doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<status status="PASS" start="2025-02-26T13:35:39.860316" elapsed="0.296767"/>
+<status status="PASS" start="2025-03-03T14:01:14.339765" elapsed="0.118692"/>
 </kw>
 <arg>${search_field}</arg>
 <arg>${search_input}</arg>
-<status status="PASS" start="2025-02-26T13:35:39.816549" elapsed="0.340655"/>
+<status status="PASS" start="2025-03-03T14:01:14.296329" elapsed="0.162395"/>
 </kw>
 <kw name="Wait And Click" owner="keywords">
 <kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
 <arg>${locator}</arg>
 <arg>timeout=${timeout}</arg>
 <doc>Waits until the element ``locator`` is visible.</doc>
-<status status="PASS" start="2025-02-26T13:35:40.157680" elapsed="0.022313"/>
+<status status="PASS" start="2025-03-03T14:01:14.459527" elapsed="0.017302"/>
 </kw>
 <kw name="Click Element" owner="SeleniumLibrary">
-<msg time="2025-02-26T13:35:40.180817" level="INFO">Clicking element '//button[@id='submit_search']'.</msg>
+<msg time="2025-03-03T14:01:14.477460" level="INFO">Clicking element '//button[@id='submit_search']'.</msg>
 <arg>${locator}</arg>
 <doc>Click the element identified by ``locator``.</doc>
-<status status="PASS" start="2025-02-26T13:35:40.180381" elapsed="2.102692"/>
+<status status="PASS" start="2025-03-03T14:01:14.477135" elapsed="3.275410"/>
 </kw>
 <arg>${search_btn}</arg>
-<status status="PASS" start="2025-02-26T13:35:40.157380" elapsed="2.125862"/>
+<status status="PASS" start="2025-03-03T14:01:14.459096" elapsed="3.293590"/>
 </kw>
-<status status="PASS" start="2025-02-26T13:35:39.815883" elapsed="2.467440"/>
+<status status="PASS" start="2025-03-03T14:01:14.295874" elapsed="3.456877"/>
 </kw>
 <kw name="Add two product" owner="ProductPage">
 <kw name="Scroll Element Into View" owner="SeleniumLibrary">
 <arg>${view_product}</arg>
 <doc>Scrolls the element identified by ``locator`` into view.</doc>
-<status status="PASS" start="2025-02-26T13:35:42.284658" elapsed="0.516211"/>
+<status status="PASS" start="2025-03-03T14:01:17.753935" elapsed="0.313954"/>
 </kw>
 <kw name="Wait And Click" owner="keywords">
 <kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
 <arg>${locator}</arg>
 <arg>timeout=${timeout}</arg>
 <doc>Waits until the element ``locator`` is visible.</doc>
-<status status="PASS" start="2025-02-26T13:35:42.802326" elapsed="0.038925"/>
+<status status="PASS" start="2025-03-03T14:01:18.069166" elapsed="0.056968"/>
 </kw>
 <kw name="Click Element" owner="SeleniumLibrary">
-<msg time="2025-02-26T13:35:42.841888" level="INFO">Clicking element '//*[@data-product-id='7']'.</msg>
+<msg time="2025-03-03T14:01:18.127276" level="INFO">Clicking element '//*[@data-product-id='7']'.</msg>
 <arg>${locator}</arg>
 <doc>Click the element identified by ``locator``.</doc>
-<status status="PASS" start="2025-02-26T13:35:42.841555" elapsed="0.124873"/>
+<status status="PASS" start="2025-03-03T14:01:18.126802" elapsed="0.184456"/>
 </kw>
 <arg>${product_one}</arg>
-<status status="PASS" start="2025-02-26T13:35:42.801673" elapsed="0.164954"/>
+<status status="PASS" start="2025-03-03T14:01:18.068435" elapsed="0.243186"/>
 </kw>
 <kw name="Wait And Click" owner="keywords">
 <kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
 <arg>${locator}</arg>
 <arg>timeout=${timeout}</arg>
 <doc>Waits until the element ``locator`` is visible.</doc>
-<status status="PASS" start="2025-02-26T13:35:42.967310" elapsed="0.502909"/>
+<status status="PASS" start="2025-03-03T14:01:18.312646" elapsed="0.493189"/>
 </kw>
 <kw name="Click Element" owner="SeleniumLibrary">
-<msg time="2025-02-26T13:35:43.470705" level="INFO">Clicking element '//button[contains(text(), 'Continue Shopping')]'.</msg>
+<msg time="2025-03-03T14:01:18.807962" level="INFO">Clicking element '//button[contains(text(), 'Continue Shopping')]'.</msg>
 <arg>${locator}</arg>
 <doc>Click the element identified by ``locator``.</doc>
-<status status="PASS" start="2025-02-26T13:35:43.470439" elapsed="0.103724"/>
+<status status="PASS" start="2025-03-03T14:01:18.806239" elapsed="0.142004"/>
 </kw>
 <arg>${Continue_Shopping}</arg>
 <arg>3s</arg>
-<status status="PASS" start="2025-02-26T13:35:42.966880" elapsed="0.607430"/>
+<status status="PASS" start="2025-03-03T14:01:18.312005" elapsed="0.636391"/>
 </kw>
 <kw name="Wait And Click" owner="keywords">
 <kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
 <arg>${locator}</arg>
 <arg>timeout=${timeout}</arg>
 <doc>Waits until the element ``locator`` is visible.</doc>
-<status status="PASS" start="2025-02-26T13:35:43.574926" elapsed="0.020958"/>
+<status status="PASS" start="2025-03-03T14:01:18.949037" elapsed="0.032988"/>
 </kw>
 <kw name="Click Element" owner="SeleniumLibrary">
-<msg time="2025-02-26T13:35:43.596629" level="INFO">Clicking element '//a[@data-product-id='42']'.</msg>
+<msg time="2025-03-03T14:01:18.982643" level="INFO">Clicking element '//a[@data-product-id='42']'.</msg>
 <arg>${locator}</arg>
 <doc>Click the element identified by ``locator``.</doc>
-<status status="PASS" start="2025-02-26T13:35:43.596242" elapsed="0.061871"/>
+<status status="PASS" start="2025-03-03T14:01:18.982311" elapsed="0.120917"/>
 </kw>
 <arg>${product_two}</arg>
-<status status="PASS" start="2025-02-26T13:35:43.574534" elapsed="0.083744"/>
+<status status="PASS" start="2025-03-03T14:01:18.948632" elapsed="0.154767"/>
 </kw>
 <kw name="Wait And Click" owner="keywords">
 <kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
 <arg>${locator}</arg>
 <arg>timeout=${timeout}</arg>
 <doc>Waits until the element ``locator`` is visible.</doc>
-<status status="PASS" start="2025-02-26T13:35:43.658990" elapsed="0.488245"/>
+<status status="PASS" start="2025-03-03T14:01:19.104092" elapsed="0.468884"/>
 </kw>
 <kw name="Click Element" owner="SeleniumLibrary">
-<msg time="2025-02-26T13:35:44.148209" level="INFO">Clicking element '//button[contains(text(), 'Continue Shopping')]'.</msg>
+<msg time="2025-03-03T14:01:19.573623" level="INFO">Clicking element '//button[contains(text(), 'Continue Shopping')]'.</msg>
 <arg>${locator}</arg>
 <doc>Click the element identified by ``locator``.</doc>
-<status status="PASS" start="2025-02-26T13:35:44.147529" elapsed="0.162698"/>
+<status status="PASS" start="2025-03-03T14:01:19.573254" elapsed="0.078179"/>
 </kw>
 <arg>${Continue_Shopping}</arg>
 <arg>3s</arg>
-<status status="PASS" start="2025-02-26T13:35:43.658528" elapsed="0.651902"/>
+<status status="PASS" start="2025-03-03T14:01:19.103643" elapsed="0.548032"/>
 </kw>
-<status status="PASS" start="2025-02-26T13:35:42.284273" elapsed="2.026247"/>
+<status status="PASS" start="2025-03-03T14:01:17.753631" elapsed="1.898203"/>
 </kw>
 <kw name="Sleep" owner="BuiltIn">
-<msg time="2025-02-26T13:35:47.312355" level="INFO">Slept 3 seconds.</msg>
+<msg time="2025-03-03T14:01:22.653590" level="INFO">Slept 3 seconds.</msg>
 <arg>3s</arg>
 <doc>Pauses the test executed for the given time.</doc>
-<status status="PASS" start="2025-02-26T13:35:44.311635" elapsed="3.000952"/>
+<status status="PASS" start="2025-03-03T14:01:19.652607" elapsed="3.001201"/>
 </kw>
 <kw name="Continues to checkout" owner="ProductPage">
 <kw name="Wait And Click" owner="keywords">
@@ -247,106 +261,53 @@
 <arg>${locator}</arg>
 <arg>timeout=${timeout}</arg>
 <doc>Waits until the element ``locator`` is visible.</doc>
-<status status="PASS" start="2025-02-26T13:35:47.314200" elapsed="0.021372"/>
+<status status="PASS" start="2025-03-03T14:01:22.655995" elapsed="0.034546"/>
 </kw>
 <kw name="Click Element" owner="SeleniumLibrary">
-<msg time="2025-02-26T13:35:47.336140" level="INFO">Clicking element '//i[contains(@class, 'fa-shopping-cart')]'.</msg>
+<msg time="2025-03-03T14:01:22.691188" level="INFO">Clicking element '//i[contains(@class, 'fa-shopping-cart')]'.</msg>
 <arg>${locator}</arg>
 <doc>Click the element identified by ``locator``.</doc>
-<status status="PASS" start="2025-02-26T13:35:47.335842" elapsed="22.389986"/>
+<status status="PASS" start="2025-03-03T14:01:22.690856" elapsed="1.728488"/>
 </kw>
 <arg>${shopping-cart}</arg>
 <arg>3s</arg>
-<status status="PASS" start="2025-02-26T13:35:47.313382" elapsed="22.412607"/>
+<status status="PASS" start="2025-03-03T14:01:22.655628" elapsed="1.763853"/>
 </kw>
 <kw name="Sleep" owner="BuiltIn">
-<msg time="2025-02-26T13:36:12.726997" level="INFO">Slept 3 seconds.</msg>
+<msg time="2025-03-03T14:01:27.420193" level="INFO">Slept 3 seconds.</msg>
 <arg>3s</arg>
 <doc>Pauses the test executed for the given time.</doc>
-<status status="PASS" start="2025-02-26T13:36:09.726171" elapsed="3.001081"/>
+<status status="PASS" start="2025-03-03T14:01:24.419635" elapsed="3.000804"/>
 </kw>
 <kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
 <arg>${Checkout_btn}</arg>
 <doc>Waits until the element ``locator`` appears on the current page.</doc>
-<status status="PASS" start="2025-02-26T13:36:12.727619" elapsed="0.031663"/>
+<status status="PASS" start="2025-03-03T14:01:27.420786" elapsed="0.044714"/>
 </kw>
 <kw name="Wait And Click" owner="keywords">
 <kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
 <arg>${locator}</arg>
 <arg>timeout=${timeout}</arg>
 <doc>Waits until the element ``locator`` is visible.</doc>
-<status status="PASS" start="2025-02-26T13:36:12.760570" elapsed="0.029726"/>
+<status status="PASS" start="2025-03-03T14:01:27.466326" elapsed="0.030992"/>
 </kw>
 <kw name="Click Element" owner="SeleniumLibrary">
-<msg time="2025-02-26T13:36:12.790852" level="INFO">Clicking element '//a[contains(@class, 'check_out')]'.</msg>
+<msg time="2025-03-03T14:01:27.498045" level="INFO">Clicking element '//a[contains(@class, 'check_out')]'.</msg>
 <arg>${locator}</arg>
 <doc>Click the element identified by ``locator``.</doc>
-<status status="PASS" start="2025-02-26T13:36:12.790559" elapsed="2.104011"/>
+<status status="PASS" start="2025-03-03T14:01:27.497603" elapsed="1.356174"/>
 </kw>
 <arg>${Checkout_btn}</arg>
-<status status="PASS" start="2025-02-26T13:36:12.760089" elapsed="2.134643"/>
+<status status="PASS" start="2025-03-03T14:01:27.465852" elapsed="1.388131"/>
 </kw>
 <kw name="Sleep" owner="BuiltIn">
-<msg time="2025-02-26T13:36:19.895641" level="INFO">Slept 5 seconds.</msg>
+<msg time="2025-03-03T14:01:33.855318" level="INFO">Slept 5 seconds.</msg>
 <arg>5s</arg>
 <doc>Pauses the test executed for the given time.</doc>
-<status status="PASS" start="2025-02-26T13:36:14.894922" elapsed="5.001088"/>
+<status status="PASS" start="2025-03-03T14:01:28.854216" elapsed="5.001513"/>
 </kw>
 <kw name="Scroll Element Into View" owner="SeleniumLibrary">
-<arg>${view_product}</arg>
-<doc>Scrolls the element identified by ``locator`` into view.</doc>
-<status status="PASS" start="2025-02-26T13:36:19.896793" elapsed="0.374520"/>
-</kw>
-<kw name="Wait And Click" owner="keywords">
-<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
-<arg>${locator}</arg>
-<arg>timeout=${timeout}</arg>
-<doc>Waits until the element ``locator`` is visible.</doc>
-<status status="PASS" start="2025-02-26T13:36:20.272445" elapsed="0.048555"/>
-</kw>
-<kw name="Click Element" owner="SeleniumLibrary">
-<msg time="2025-02-26T13:36:20.321626" level="INFO">Clicking element '//a[contains(text(), 'Place Order')]'.</msg>
-<arg>${locator}</arg>
-<doc>Click the element identified by ``locator``.</doc>
-<status status="PASS" start="2025-02-26T13:36:20.321293" elapsed="2.973418"/>
-</kw>
-<arg>${payment}</arg>
-<status status="PASS" start="2025-02-26T13:36:20.271796" elapsed="3.023072"/>
-</kw>
-<kw name="Sleep" owner="BuiltIn">
-<msg time="2025-02-26T13:36:26.296661" level="INFO">Slept 3 seconds.</msg>
-<arg>3s</arg>
-<doc>Pauses the test executed for the given time.</doc>
-<status status="PASS" start="2025-02-26T13:36:23.295042" elapsed="3.001859"/>
-</kw>
-<status status="PASS" start="2025-02-26T13:35:47.313097" elapsed="38.983995"/>
-</kw>
-<kw name="Sleep" owner="BuiltIn">
-<msg time="2025-02-26T13:36:29.299379" level="INFO">Slept 3 seconds.</msg>
-<arg>3s</arg>
-<doc>Pauses the test executed for the given time.</doc>
-<status status="PASS" start="2025-02-26T13:36:26.298326" elapsed="3.001316"/>
-</kw>
-<status status="PASS" start="2025-02-26T13:35:27.467566" elapsed="61.832666"/>
-</test>
-<status status="PASS" start="2025-02-26T13:35:27.024905" elapsed="62.277352"/>
-</suite>
-<status status="PASS" start="2025-02-26T13:35:27.023409" elapsed="62.281306"/>
-</suite>
-<status status="PASS" start="2025-02-26T13:35:26.983761" elapsed="62.322587"/>
-</suite>
-<statistics>
-<total>
-<stat pass="1" fail="0" skip="0">All Tests</stat>
-</total>
-<tag>
-</tag>
-<suite>
-<stat name="AlmosaferRobotframeWork" id="s1" pass="1" fail="0" skip="0">AlmosaferRobotframeWork</stat>
-<stat name="Tests" id="s1-s1" pass="1" fail="0" skip="0">AlmosaferRobotframeWork.Tests</stat>
-<stat name="Test" id="s1-s1-s1" pass="1" fail="0" skip="0">AlmosaferRobotframeWork.Tests.Test</stat>
-</suite>
-</statistics>
-<errors>
-</errors>
-</robot>
+<msg time="2025-03-03T14:01:37.990542" level="WARN">Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('&lt;urllib3.connection.HTTPConnection object at 0x000001ED2CF21BD0&gt;: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/4abaef6e470a8d511f7e263c6f6f6699/screenshot</msg>
+<msg time="2025-03-03T14:01:42.071597" level="WARN">Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('&lt;urllib3.connection.HTTPConnection object at 0x000001ED2CF18050&gt;: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/4abaef6e470a8d511f7e263c6f6f6699/screenshot</msg>
+<msg time="2025-03-03T14:01:46.131265" level="WARN">Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('&lt;urllib3.connection.HTTPConnection object at 0x000001ED2CF196E0&gt;: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/4abaef6e470a8d511f7e263c6f6f6699/screenshot</msg>
+<msg time="2025-03-03T14:01:50.197165" level="WARN">Keyword 'Capture Page Screenshot' could not be run on failure: HTTPConnectionPool(host='localhost', port=63886): Max retries exceeded with url: /session/4abaef6e470a8d511f7e263c6f6f6699/screenshot (Caused by NewConnectionError('&lt;urllib3.connection.HTTPConnection object at 0x000001ED2CE96450&gt;: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
