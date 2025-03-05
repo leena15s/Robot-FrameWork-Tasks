@@ -9,10 +9,22 @@ trigger:
 pool: mylocalPool
 
 steps:
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: '3.x'
 - script: echo Hello, world!
   displayName: 'Run a one-line script'
+
+# steps:
+# - script: echo Hello, world!
+#   displayName: 'Run a one-line script'
 
 - script: |
     echo Add other tasks to build, test, and deploy your project.
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
+
+
+- script: |
+    echo "Running Task 1"
+  displayName: 'Run Task 1'
