@@ -23,8 +23,10 @@ steps:
     displayName: 'Install Robot Framework & Dependencies'
 
   - script: |
-      choco install googlechrome chromedriver -y
-    displayName: 'Install Chrome & ChromeDriver'
+      echo "Installing Chrome and ChromeDriver using winget"
+      winget install --id Google.Chrome -e --source winget
+      winget install --id Google.ChromeDriver -e --source winget
+    displayName: 'Install Chrome & ChromeDriver using winget'
 
   - script: |
       echo "Checking test directory and files..."
