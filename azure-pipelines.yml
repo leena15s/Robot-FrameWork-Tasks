@@ -2,7 +2,7 @@ trigger:
   - master
 
 pool:
-  name: mylocal
+  name: agent3
 
 steps:
   - checkout: self
