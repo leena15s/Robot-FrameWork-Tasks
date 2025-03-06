@@ -23,9 +23,16 @@ steps:
     displayName: 'Install Robot Framework & Dependencies'
 
   - script: |
-      echo "Installing Chrome and ChromeDriver using winget"
-      winget install --id Google.Chrome -e --source winget
-      winget install --id Google.ChromeDriver -e --source winget
+
+      echo "Installing Google Chrome manually"
+      curl -Lo chrome_installer.exe https://dl.google.com/chrome/install/latest/chrome_installer.exe
+      start /wait chrome_installer.exe /silent /install
+
+      echo "Installing ChromeDriver manually"
+      curl -Lo chromedriver.zip https://chromedriver.storage.googleapis.com/113.0.5672.63/chromedriver_win32.zip
+      tar -xf chromedriver.zip
+      move chromedriver.exe C:\Users\Leena\Downloads\chromedriver-win64\chromedriver-win64\chromedriver.exe
+
     displayName: 'Install Chrome & ChromeDriver using winget'
 
   - script: |
