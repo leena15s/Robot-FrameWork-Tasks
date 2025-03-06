@@ -6,7 +6,7 @@ trigger:
   - master
  
 pool:
-  name: mylocalPool  
+  name: mylocal
  
 steps:
   - checkout: self
