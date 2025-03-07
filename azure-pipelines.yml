@@ -1,18 +1,19 @@
 trigger:
   - master
- 
+
 pool:
-  name: agent3  
- 
+  name: agent3
+
 steps:
   - checkout: self
     displayName: 'Checkout Code'
- 
+
+  # Step to install Python without using Chocolatey (since you have it installed already)
   - script: |
-      echo "Installing Python 3.9"
-      choco install python --version 3.9 -y
-    displayName: 'Install Python'
- 
+      echo "Python 3.9 is already installed"
+    displayName: 'Confirm Python Installation'
+
+  # Install Robot Framework and dependencies
   - script: |
       python -m venv venv
       call .\venv\Scripts\activate && pip install --upgrade pip
@@ -20,17 +21,21 @@ steps:
       pip install robotframework-seleniumlibrary
       pip install robotframework-csvlibrary  
     displayName: 'Install Robot Framework & Dependencies'
- 
+
+  # Install Chrome & ChromeDriver using winget (since choco wasn't working)
   - script: |
-      choco install googlechrome chromedriver -y
+      echo "Installing Google Chrome and ChromeDriver"
+      winget install --id Google.Chrome --exact --silent
+      winget install --id Microsoft.EdgeWebView2Runtime --exact --silent
     displayName: 'Install Chrome & ChromeDriver'
- 
+
+  # List files in the test directory for debugging purposes
   - script: |
       echo "Checking test directory and files..."
       dir test
     displayName: 'Debug: List Test Files'
- 
+
+  # Run Robot Framework tests
   - script: |
       call .\venv\Scripts\activate && python -m robot --console verbose test/
     displayName: 'Run All Robot Framework Test Cases'
- 
