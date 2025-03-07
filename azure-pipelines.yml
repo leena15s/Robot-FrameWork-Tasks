@@ -22,18 +22,18 @@ steps:
       pip install robotframework-csvlibrary  
     displayName: 'Install Robot Framework & Dependencies'
 
-  # Install Google Chrome and ChromeDriver manually by downloading them directly
+  # Download ChromeDriver version 134.0.6998.35
   - script: |
-      echo "Downloading Google Chrome..."
-      Invoke-WebRequest -Uri "https://dl.google.com/chrome/install/latest/chrome_installer.exe" -OutFile "C:\chrome_installer.exe"
-      Start-Process "C:\chrome_installer.exe" -ArgumentList "/silent", "/install" -NoNewWindow -Wait
-      echo "Google Chrome installed successfully"
-
-      echo "Downloading ChromeDriver..."
-      Invoke-WebRequest -Uri "https://chromedriver.storage.googleapis.com/114.0.5735.90/chromedriver_win32.zip" -OutFile "C:\chromedriver.zip"
+      echo "Downloading ChromeDriver version 134.0.6998.35..."
+      Invoke-WebRequest -Uri "https://chromedriver.storage.googleapis.com/134.0.6998.35/chromedriver_win32.zip" -OutFile "C:\chromedriver.zip"
       Expand-Archive -Path "C:\chromedriver.zip" -DestinationPath "C:\chromedriver"
-      echo "ChromeDriver installed successfully"
-    displayName: 'Install Chrome & ChromeDriver'
+      echo "ChromeDriver version 134.0.6998.35 downloaded and installed successfully"
+
+      # Add ChromeDriver to PATH
+      echo "Adding ChromeDriver to PATH"
+      $env:Path += ";C:\chromedriver"
+      echo "ChromeDriver path added"
+    displayName: 'Download and Install ChromeDriver v134.0.6998.35'
 
   # List files in the test directory for debugging purposes
   - script: |
