@@ -8,7 +8,7 @@ steps:
   - checkout: self
     displayName: 'Checkout Code'
 
-  # Step to install Python without using Chocolatey (since you have it installed already)
+  # Step to confirm Python installation (you've already installed it manually)
   - script: |
       echo "Python 3.9 is already installed"
     displayName: 'Confirm Python Installation'
@@ -22,11 +22,11 @@ steps:
       pip install robotframework-csvlibrary  
     displayName: 'Install Robot Framework & Dependencies'
 
-  # Install Chrome & ChromeDriver using winget (since choco wasn't working)
+  # Install Chrome & ChromeDriver using winget (make sure it's silent)
   - script: |
       echo "Installing Google Chrome and ChromeDriver"
-      winget install --id Google.Chrome --exact --silent
-      winget install --id Microsoft.EdgeWebView2Runtime --exact --silent
+      winget install --id Google.Chrome --exact --silent --accept-package-agreements
+      winget install --id Microsoft.EdgeWebView2Runtime --exact --silent --accept-package-agreements
     displayName: 'Install Chrome & ChromeDriver'
 
   # List files in the test directory for debugging purposes
