@@ -8,7 +8,7 @@ steps:
   - checkout: self
     displayName: 'Checkout Code'
 
-  # Step to confirm Python installation (you've already installed it manually)
+  # Step to install Python without using Chocolatey (since you have it installed already)
   - script: |
       echo "Python 3.9 is already installed"
     displayName: 'Confirm Python Installation'
@@ -22,17 +22,22 @@ steps:
       pip install robotframework-csvlibrary  
     displayName: 'Install Robot Framework & Dependencies'
 
-  # Download ChromeDriver version 134.0.6998.35
-  - script: |
-      echo "Downloading ChromeDriver version 134.0.6998.35..."
-      Invoke-WebRequest -Uri "https://chromedriver.storage.googleapis.com/134.0.6998.35/chromedriver_win32.zip" -OutFile "C:\chromedriver.zip"
-      Expand-Archive -Path "C:\chromedriver.zip" -DestinationPath "C:\chromedriver"
-      echo "ChromeDriver version 134.0.6998.35 downloaded and installed successfully"
+  # Install Chrome & ChromeDriver using PowerShell
+  - powershell: |
+      # Define ChromeDriver version and download URL
+      $chromeDriverVersion = "134.0.6998.35"
+      $downloadUrl = "https://chromedriver.storage.googleapis.com/$chromeDriverVersion/chromedriver_win32.zip"
+      
+      # Download ChromeDriver zip
+      Invoke-WebRequest -Uri $downloadUrl -OutFile "C:\ChromeDriver\chromedriver.zip"
+
+      # Expand the zip file
+      Expand-Archive -Path "C:\ChromeDriver\chromedriver.zip" -DestinationPath "C:\ChromeDriver"
 
       # Add ChromeDriver to PATH
-      echo "Adding ChromeDriver to PATH"
-      $env:Path += ";C:\chromedriver"
-      echo "ChromeDriver path added"
+      [System.Environment]::SetEnvironmentVariable("PATH", "$env:PATH;C:\ChromeDriver", [System.EnvironmentVariableTarget]::Machine)
+
+      echo "ChromeDriver installed successfully."
     displayName: 'Download and Install ChromeDriver v134.0.6998.35'
 
   # List files in the test directory for debugging purposes
