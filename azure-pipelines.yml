@@ -104,31 +104,30 @@ steps:
   - checkout: self
     displayName: 'Checkout Code'
 
-  # Step to install Python without using Chocolatey (since you have it installed already)
+  # Confirm Python Installation
   - script: |
-      echo "Python 3.9 is already installed"
+      python --version
     displayName: 'Confirm Python Installation'
 
-  # Install Robot Framework and dependencies
+  # Install Robot Framework & Dependencies
   - script: |
       python -m venv venv
-      call .\venv\Scripts\activate && pip install --upgrade pip
+      if exist ".\venv" (
+          echo "venv directory exists."
+      ) else (
+          echo "venv directory does not exist."
+          exit 1
+      )
+    displayName: 'Confirm venv Creation'
+
+  # Activate the virtual environment and install dependencies
+  - script: |
+      call .\venv\Scripts\activate.bat
+      python -m pip install --upgrade pip
       pip install robotframework
       pip install robotframework-seleniumlibrary
       pip install robotframework-csvlibrary  
     displayName: 'Install Robot Framework & Dependencies'
-
-  # Check if venv directory exists after installation
-  - script: |
-      echo "Checking if venv directory exists..."
-      if exist ".\venv" (
-          echo "venv directory exists"
-          dir .\venv
-      ) else (
-          echo "venv directory not found"
-          exit 1
-      )
-    displayName: 'Check venv Directory After Installation'
 
   # Install Firefox
   - script: |
@@ -155,4 +154,9 @@ steps:
       }
 
       if (Test-Path "$destinationPath\geckodriver.exe") {
-          Write-Host "Removing existing Gec
+          Write-Host "Removing existing GeckoDriver..."
+          Remove-Item "$destinationPath\geckodriver.exe" -Force
+      }
+
+      try {
+          Write-Host
