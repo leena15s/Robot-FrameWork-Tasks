@@ -89,8 +89,13 @@ steps:
       )
     displayName: 'Debug: List Test Files'
     
-    
-  # Run Robot Framework tests using Firefox
+    ##
   - script: |
-      call .\venv\Scripts\activate && python -m robot --console verbose test/
-    displayName: 'Run All Robot Framework Test Cases'
+     # Activate virtual environment for Windows
+     call .\venv\Scripts\activate
+    
+    # Ensure dependencies are installed (optional, in case the environment is not set up correctly)
+    pip install --quiet -r requirements.txt
+    
+     python -m robot --console verbose test/
+   displayName:  'Run All Robot Framework Test Cases'
