@@ -96,7 +96,6 @@
 #     displayName: 'Run All Robot Framework Test Cases'
 
 
-
 trigger:
   - master
 
@@ -121,6 +120,12 @@ steps:
       pip install robotframework-csvlibrary  
     displayName: 'Install Robot Framework & Dependencies'
 
+  # Check if the virtual environment exists
+  - script: |
+      echo "Checking if venv exists..."
+      dir .\venv\Scripts
+    displayName: 'Debug: Check venv Directory'
+
   # Install Firefox
   - script: |
       echo "Installing Firefox"
@@ -129,16 +134,14 @@ steps:
 
   # Install GeckoDriver manually using PowerShell
   - powershell: |
-      $geckoDriverVersion = "0.30.0"  # Set the version of GeckoDriver you want to install
+      $geckoDriverVersion = "0.30.0"
       $geckoDriverUrl = "https://github.com/mozilla/geckodriver/releases/download/v$geckoDriverVersion/geckodriver-v$geckoDriverVersion-win64.zip"
       $destinationPath = "C:\geckodriver"
       
-      # Create directory if not exists
       if (-Not (Test-Path $destinationPath)) {
           New-Item -ItemType Directory -Path $destinationPath
       }
 
-      # Download GeckoDriver zip
       try {
           Write-Host "Downloading GeckoDriver from $geckoDriverUrl"
           Invoke-WebRequest -Uri $geckoDriverUrl -OutFile "$destinationPath\geckodriver.zip" -ErrorAction Stop
@@ -147,13 +150,11 @@ steps:
           exit 1
       }
 
-      # If geckodriver.exe already exists, delete it before expanding the new archive
       if (Test-Path "$destinationPath\geckodriver.exe") {
           Write-Host "Removing existing GeckoDriver..."
           Remove-Item "$destinationPath\geckodriver.exe" -Force
       }
 
-      # Expand the zip file and overwrite any existing files
       try {
           Write-Host "Extracting GeckoDriver..."
           Expand-Archive -Path "$destinationPath\geckodriver.zip" -DestinationPath $destinationPath -Force -ErrorAction Stop
@@ -162,7 +163,6 @@ steps:
           exit 1
       }
 
-      # Add GeckoDriver to PATH
       try {
           Write-Host "Adding GeckoDriver to PATH..."
           [System.Environment]::SetEnvironmentVariable("PATH", "$env:PATH;$destinationPath", [System.EnvironmentVariableTarget]::Machine)
@@ -174,9 +174,9 @@ steps:
       Write-Host "GeckoDriver installed successfully."
     displayName: 'Install GeckoDriver'
 
-  # List files in the test directory for debugging purposes
+  # Debug: Check Current Directory
   - script: |
-      echo "Current working directory: %CD%"
+      echo "Current directory: %CD%"
       echo "Checking if 'test' directory exists..."
       if exist "test" (
           echo "Listing files in 'test' directory:"
@@ -185,21 +185,8 @@ steps:
           echo "'test' directory not found."
       )
     displayName: 'Debug: List Test Files'
-  
-  # Check if the virtual environment exists
-  - script: |
-      echo "Checking if venv exists..."
-      dir .\venv\Scripts
-    displayName: 'Debug: Check venv Directory'
-
-  # In PowerShell, use activate.ps1
-  - script: |
-      .\venv\Scripts\Activate.ps1
-      python -m robot --console verbose test/
-    displayName: 'Run Robot Framework Tests in PowerShell'
 
   # Run Robot Framework tests using Firefox
   - script: |
-      call C:\Windows\System32\agent3\_work\_temp\venv\Scripts\activate
-      python -m robot --console verbose test/
-    displayName: 'Run Robot Framework Tests'
+      call .\venv\Scripts\activate && python -m robot --console verbose test/
+    displayName: 'Run All Robot Framework Test Cases'
