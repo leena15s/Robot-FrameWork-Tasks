@@ -22,12 +22,36 @@ steps:
       pip install robotframework-csvlibrary  
     displayName: 'Install Robot Framework & Dependencies'
 
-  # Install Firefox and GeckoDriver
+ 
+  # Install Firefox
   - script: |
-      echo "Installing Firefox and GeckoDriver"
+      echo "Installing Firefox"
       choco install firefox -y
-      choco install geckodriver -y
-    displayName: 'Install Firefox & GeckoDriver'
+    displayName: 'Install Firefox'
+
+  # Install GeckoDriver manually using PowerShell (instead of using Chocolatey)
+  - powershell: |
+      $geckoDriverVersion = "0.30.0"  # Set the version of GeckoDriver you want to install
+      $geckoDriverUrl = "https://github.com/mozilla/geckodriver/releases/download/v$geckoDriverVersion/geckodriver-v$geckoDriverVersion-win64.zip"
+      $destinationPath = "C:\geckodriver"
+      
+      # Create directory if not exists
+      if (-Not (Test-Path $destinationPath)) {
+          New-Item -ItemType Directory -Path $destinationPath
+      }
+
+      # Download GeckoDriver zip
+      Invoke-WebRequest -Uri $geckoDriverUrl -OutFile "$destinationPath\geckodriver.zip"
+
+      # Expand the zip file
+      Expand-Archive -Path "$destinationPath\geckodriver.zip" -DestinationPath $destinationPath
+
+      # Add GeckoDriver to PATH
+      [System.Environment]::SetEnvironmentVariable("PATH", "$env:PATH;$destinationPath", [System.EnvironmentVariableTarget]::Machine)
+
+      echo "GeckoDriver installed successfully."
+    displayName: 'Install GeckoDriver'
+
 
   # Debug: List Test Files
   - script: |
