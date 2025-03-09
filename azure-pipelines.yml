@@ -77,12 +77,19 @@ steps:
     displayName: 'Install GeckoDriver'
 
 
-  # Debug: List Test Files
+  # List files in the test directory for debugging purposes
   - script: |
-      echo "Checking test directory and files..."
-      dir test
+      echo "Current working directory: %CD%"
+      echo "Checking if 'test' directory exists..."
+      if exist "test" (
+          echo "Listing files in 'test' directory:"
+          dir test
+      ) else (
+          echo "'test' directory not found."
+      )
     displayName: 'Debug: List Test Files'
-
+    
+    
   # Run Robot Framework tests using Firefox
   - script: |
       call .\venv\Scripts\activate && python -m robot --console verbose test/
