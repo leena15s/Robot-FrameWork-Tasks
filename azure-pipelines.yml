@@ -88,14 +88,18 @@ steps:
           echo "'test' directory not found."
       )
     displayName: 'Debug: List Test Files'
-    
-    ##
+  
+  #new scrpit 
   - script: |
-     # Activate virtual environment for Windows
-     call .\venv\Scripts\activate
+          # Activate the virtual environment for Windows
+          call .\venv\Scripts\activate
+          
+          # Install dependencies (in case they aren't installed yet)
+          pip install --quiet -r requirements.txt
+          
+          # Run Robot Framework tests
+          python -m robot --console verbose test/
+    displayName: 'Run All Robot Framework Test Cases'
+        
+
     
-    # Ensure dependencies are installed (optional, in case the environment is not set up correctly)
-    pip install --quiet -r requirements.txt
-    
-     python -m robot --console verbose test/
-   displayName:  'Run All Robot Framework Test Cases'
