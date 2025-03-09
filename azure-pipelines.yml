@@ -22,31 +22,64 @@ steps:
       pip install robotframework-csvlibrary  
     displayName: 'Install Robot Framework & Dependencies'
 
-  # Install Chrome & ChromeDriver using PowerShell
-  - powershell: |
-      # Define ChromeDriver version and download URL
-      $chromeDriverVersion = "134.0.6998.35"
-      $downloadUrl = "https://chromedriver.storage.googleapis.com/$chromeDriverVersion/chromedriver_win32.zip"
-      
-      # Download ChromeDriver zip
-      Invoke-WebRequest -Uri $downloadUrl -OutFile "C:\ChromeDriver\chromedriver.zip"
+  # Install Firefox and GeckoDriver
+  - script: |
+      echo "Installing Firefox and GeckoDriver"
+      choco install firefox -y
+      choco install geckodriver -y
+    displayName: 'Install Firefox & GeckoDriver'
 
-      # Expand the zip file
-      Expand-Archive -Path "C:\ChromeDriver\chromedriver.zip" -DestinationPath "C:\ChromeDriver"
-
-      # Add ChromeDriver to PATH
-      [System.Environment]::SetEnvironmentVariable("PATH", "$env:PATH;C:\ChromeDriver", [System.EnvironmentVariableTarget]::Machine)
-
-      echo "ChromeDriver installed successfully."
-    displayName: 'Download and Install ChromeDriver v134.0.6998.35'
-
-  # List files in the test directory for debugging purposes
+  # Debug: List Test Files
   - script: |
       echo "Checking test directory and files..."
       dir test
     displayName: 'Debug: List Test Files'
 
-  # Run Robot Framework tests
+  # Run Robot Framework tests using Firefox
   - script: |
       call .\venv\Scripts\activate && python -m robot --console verbose test/
     displayName: 'Run All Robot Framework Test Cases'
+
+
+  # # Step to install Python without using Chocolatey (since you have it installed already)
+  # - script: |
+  #     echo "Python 3.9 is already installed"
+  #   displayName: 'Confirm Python Installation'
+
+  # # Install Robot Framework and dependencies
+  # - script: |
+  #     python -m venv venv
+  #     call .\venv\Scripts\activate && pip install --upgrade pip
+  #     pip install robotframework
+  #     pip install robotframework-seleniumlibrary
+  #     pip install robotframework-csvlibrary  
+  #   displayName: 'Install Robot Framework & Dependencies'
+
+  # # Install Chrome & ChromeDriver using PowerShell
+  # - powershell: |
+  #     # Define ChromeDriver version and download URL
+  #     $chromeDriverVersion = "134.0.6998.35"
+  #     $downloadUrl = "https://chromedriver.storage.googleapis.com/$chromeDriverVersion/chromedriver_win32.zip"
+      
+  #     # Download ChromeDriver zip
+  #     Invoke-WebRequest -Uri $downloadUrl -OutFile "C:\ChromeDriver\chromedriver.zip"
+
+  #     # Expand the zip file
+  #     Expand-Archive -Path "C:\ChromeDriver\chromedriver.zip" -DestinationPath "C:\ChromeDriver"
+
+  #     # Add ChromeDriver to PATH
+  #     [System.Environment]::SetEnvironmentVariable("PATH", "$env:PATH;C:\ChromeDriver", [System.EnvironmentVariableTarget]::Machine)
+
+  #     echo "ChromeDriver installed successfully."
+  #   displayName: 'Download and Install ChromeDriver v134.0.6998.35'
+
+  # # List files in the test directory for debugging purposes
+  # - script: |
+  #     echo "Checking test directory and files..."
+  #     dir test
+  #   displayName: 'Debug: List Test Files'
+
+  # # Run Robot Framework tests
+  # - script: |
+  #     call .\venv\Scripts\activate && python -m robot --console verbose test/
+  #   displayName: 'Run All Robot Framework Test Cases'
