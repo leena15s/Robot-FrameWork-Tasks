@@ -94,8 +94,6 @@
 #   - script: |
 #       call .\venv\Scripts\activate && python -m robot --console verbose test/
 #     displayName: 'Run All Robot Framework Test Cases'
-
-
 trigger:
   - master
 
@@ -120,11 +118,17 @@ steps:
       pip install robotframework-csvlibrary  
     displayName: 'Install Robot Framework & Dependencies'
 
-  # Check if the virtual environment exists
+  # Check if venv directory exists after installation
   - script: |
-      echo "Checking if venv exists..."
-      dir .\venv\Scripts
-    displayName: 'Debug: Check venv Directory'
+      echo "Checking if venv directory exists..."
+      if exist ".\venv" (
+          echo "venv directory exists"
+          dir .\venv
+      ) else (
+          echo "venv directory not found"
+          exit 1
+      )
+    displayName: 'Check venv Directory After Installation'
 
   # Install Firefox
   - script: |
@@ -151,42 +155,4 @@ steps:
       }
 
       if (Test-Path "$destinationPath\geckodriver.exe") {
-          Write-Host "Removing existing GeckoDriver..."
-          Remove-Item "$destinationPath\geckodriver.exe" -Force
-      }
-
-      try {
-          Write-Host "Extracting GeckoDriver..."
-          Expand-Archive -Path "$destinationPath\geckodriver.zip" -DestinationPath $destinationPath -Force -ErrorAction Stop
-      } catch {
-          Write-Host "Error expanding the archive: $_"
-          exit 1
-      }
-
-      try {
-          Write-Host "Adding GeckoDriver to PATH..."
-          [System.Environment]::SetEnvironmentVariable("PATH", "$env:PATH;$destinationPath", [System.EnvironmentVariableTarget]::Machine)
-      } catch {
-          Write-Host "Error adding GeckoDriver to PATH: $_"
-          exit 1
-      }
-
-      Write-Host "GeckoDriver installed successfully."
-    displayName: 'Install GeckoDriver'
-
-  # Debug: Check Current Directory
-  - script: |
-      echo "Current directory: %CD%"
-      echo "Checking if 'test' directory exists..."
-      if exist "test" (
-          echo "Listing files in 'test' directory:"
-          dir test
-      ) else (
-          echo "'test' directory not found."
-      )
-    displayName: 'Debug: List Test Files'
-
-  # Run Robot Framework tests using Firefox
-  - script: |
-      call .\venv\Scripts\activate && python -m robot --console verbose test/
-    displayName: 'Run All Robot Framework Test Cases'
+          Write-Host "Removing existing Gec
