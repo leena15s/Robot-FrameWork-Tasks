@@ -29,7 +29,7 @@ steps:
       choco install firefox -y
     displayName: 'Install Firefox'
 
-  # Install GeckoDriver manually using PowerShell (instead of using Chocolatey)
+ # Install GeckoDriver manually using PowerShell
   - powershell: |
       $geckoDriverVersion = "0.30.0"  # Set the version of GeckoDriver you want to install
       $geckoDriverUrl = "https://github.com/mozilla/geckodriver/releases/download/v$geckoDriverVersion/geckodriver-v$geckoDriverVersion-win64.zip"
@@ -41,15 +41,39 @@ steps:
       }
 
       # Download GeckoDriver zip
-      Invoke-WebRequest -Uri $geckoDriverUrl -OutFile "$destinationPath\geckodriver.zip"
+      try {
+          Write-Host "Downloading GeckoDriver from $geckoDriverUrl"
+          Invoke-WebRequest -Uri $geckoDriverUrl -OutFile "$destinationPath\geckodriver.zip" -ErrorAction Stop
+      } catch {
+          Write-Host "Error downloading GeckoDriver: $_"
+          exit 1
+      }
 
-      # Expand the zip file
-      Expand-Archive -Path "$destinationPath\geckodriver.zip" -DestinationPath $destinationPath
+      # If geckodriver.exe already exists, delete it before expanding the new archive
+      if (Test-Path "$destinationPath\geckodriver.exe") {
+          Write-Host "Removing existing GeckoDriver..."
+          Remove-Item "$destinationPath\geckodriver.exe" -Force
+      }
+
+      # Expand the zip file and overwrite any existing files
+      try {
+          Write-Host "Extracting GeckoDriver..."
+          Expand-Archive -Path "$destinationPath\geckodriver.zip" -DestinationPath $destinationPath -Force -ErrorAction Stop
+      } catch {
+          Write-Host "Error expanding the archive: $_"
+          exit 1
+      }
 
       # Add GeckoDriver to PATH
-      [System.Environment]::SetEnvironmentVariable("PATH", "$env:PATH;$destinationPath", [System.EnvironmentVariableTarget]::Machine)
+      try {
+          Write-Host "Adding GeckoDriver to PATH..."
+          [System.Environment]::SetEnvironmentVariable("PATH", "$env:PATH;$destinationPath", [System.EnvironmentVariableTarget]::Machine)
+      } catch {
+          Write-Host "Error adding GeckoDriver to PATH: $_"
+          exit 1
+      }
 
-      echo "GeckoDriver installed successfully."
+      Write-Host "GeckoDriver installed successfully."
     displayName: 'Install GeckoDriver'
 
 
