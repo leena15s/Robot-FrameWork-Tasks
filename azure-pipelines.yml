@@ -89,17 +89,6 @@ steps:
       )
     displayName: 'Debug: List Test Files'
   
-  #new scrpit 
-  - script: |
-          # Activate the virtual environment for Windows
-          call .\venv\Scripts\activate
-          
-          # Install dependencies (in case they aren't installed yet)
-          pip install --quiet -r requirements.txt
-          
-          # Run Robot Framework tests
-          python -m robot --console verbose test/
-    displayName: 'Run All Robot Framework Test Cases'
 
   - script: |
           REM Activate the virtual environment for Windows
