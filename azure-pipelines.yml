@@ -186,8 +186,20 @@ steps:
       )
     displayName: 'Debug: List Test Files'
   
+  # Check if the virtual environment exists
+  - script: |
+      echo "Checking if venv exists..."
+      dir .\venv\Scripts
+    displayName: 'Debug: Check venv Directory'
+
+  # In PowerShell, use activate.ps1
+  - script: |
+      .\venv\Scripts\Activate.ps1
+      python -m robot --console verbose test/
+    displayName: 'Run Robot Framework Tests in PowerShell'
+
   # Run Robot Framework tests using Firefox
   - script: |
-      call .\venv\Scripts\activate && python -m robot --console verbose test/
-    displayName: 'Run All Robot Framework Test Cases'
-
+      call C:\Windows\System32\agent3\_work\_temp\venv\Scripts\activate
+      python -m robot --console verbose test/
+    displayName: 'Run Robot Framework Tests'
