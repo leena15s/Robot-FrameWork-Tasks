@@ -1,3 +1,102 @@
+# trigger:
+#   - master
+
+# pool:
+#   name: agent3
+
+# steps:
+#   - checkout: self
+#     displayName: 'Checkout Code'
+
+#   # Step to install Python without using Chocolatey (since you have it installed already)
+#   - script: |
+#       echo "Python 3.9 is already installed"
+#     displayName: 'Confirm Python Installation'
+
+#   # Install Robot Framework and dependencies
+#   - script: |
+#       python -m venv venv
+#       call .\venv\Scripts\activate && pip install --upgrade pip
+#       pip install robotframework
+#       pip install robotframework-seleniumlibrary
+#       pip install robotframework-csvlibrary  
+#     displayName: 'Install Robot Framework & Dependencies'
+
+ 
+#   # Install Firefox
+#   - script: |
+#       echo "Installing Firefox"
+#       choco install firefox -y
+#     displayName: 'Install Firefox'
+
+#  # Install GeckoDriver manually using PowerShell
+#   - powershell: |
+#       $geckoDriverVersion = "0.30.0"  # Set the version of GeckoDriver you want to install
+#       $geckoDriverUrl = "https://github.com/mozilla/geckodriver/releases/download/v$geckoDriverVersion/geckodriver-v$geckoDriverVersion-win64.zip"
+#       $destinationPath = "C:\geckodriver"
+      
+#       # Create directory if not exists
+#       if (-Not (Test-Path $destinationPath)) {
+#           New-Item -ItemType Directory -Path $destinationPath
+#       }
+
+#       # Download GeckoDriver zip
+#       try {
+#           Write-Host "Downloading GeckoDriver from $geckoDriverUrl"
+#           Invoke-WebRequest -Uri $geckoDriverUrl -OutFile "$destinationPath\geckodriver.zip" -ErrorAction Stop
+#       } catch {
+#           Write-Host "Error downloading GeckoDriver: $_"
+#           exit 1
+#       }
+
+#       # If geckodriver.exe already exists, delete it before expanding the new archive
+#       if (Test-Path "$destinationPath\geckodriver.exe") {
+#           Write-Host "Removing existing GeckoDriver..."
+#           Remove-Item "$destinationPath\geckodriver.exe" -Force
+#       }
+
+#       # Expand the zip file and overwrite any existing files
+#       try {
+#           Write-Host "Extracting GeckoDriver..."
+#           Expand-Archive -Path "$destinationPath\geckodriver.zip" -DestinationPath $destinationPath -Force -ErrorAction Stop
+#       } catch {
+#           Write-Host "Error expanding the archive: $_"
+#           exit 1
+#       }
+
+#       # Add GeckoDriver to PATH
+#       try {
+#           Write-Host "Adding GeckoDriver to PATH..."
+#           [System.Environment]::SetEnvironmentVariable("PATH", "$env:PATH;$destinationPath", [System.EnvironmentVariableTarget]::Machine)
+#       } catch {
+#           Write-Host "Error adding GeckoDriver to PATH: $_"
+#           exit 1
+#       }
+
+#       Write-Host "GeckoDriver installed successfully."
+#     displayName: 'Install GeckoDriver'
+
+
+#   # List files in the test directory for debugging purposes
+#   - script: |
+#       echo "Current working directory: %CD%"
+#       echo "Checking if 'test' directory exists..."
+#       if exist "test" (
+#           echo "Listing files in 'test' directory:"
+#           dir test
+#       ) else (
+#           echo "'test' directory not found."
+#       )
+#     displayName: 'Debug: List Test Files'
+    
+    
+#   # Run Robot Framework tests using Firefox
+#   - script: |
+#       call .\venv\Scripts\activate && python -m robot --console verbose test/
+#     displayName: 'Run All Robot Framework Test Cases'
+
+
+
 trigger:
   - master
 
@@ -22,14 +121,13 @@ steps:
       pip install robotframework-csvlibrary  
     displayName: 'Install Robot Framework & Dependencies'
 
- 
   # Install Firefox
   - script: |
       echo "Installing Firefox"
       choco install firefox -y
     displayName: 'Install Firefox'
 
- # Install GeckoDriver manually using PowerShell
+  # Install GeckoDriver manually using PowerShell
   - powershell: |
       $geckoDriverVersion = "0.30.0"  # Set the version of GeckoDriver you want to install
       $geckoDriverUrl = "https://github.com/mozilla/geckodriver/releases/download/v$geckoDriverVersion/geckodriver-v$geckoDriverVersion-win64.zip"
@@ -76,7 +174,6 @@ steps:
       Write-Host "GeckoDriver installed successfully."
     displayName: 'Install GeckoDriver'
 
-
   # List files in the test directory for debugging purposes
   - script: |
       echo "Current working directory: %CD%"
@@ -88,53 +185,9 @@ steps:
           echo "'test' directory not found."
       )
     displayName: 'Debug: List Test Files'
-    
-    
+  
   # Run Robot Framework tests using Firefox
   - script: |
       call .\venv\Scripts\activate && python -m robot --console verbose test/
     displayName: 'Run All Robot Framework Test Cases'
 
-
-  # # Step to install Python without using Chocolatey (since you have it installed already)
-  # - script: |
-  #     echo "Python 3.9 is already installed"
-  #   displayName: 'Confirm Python Installation'
-
-  # # Install Robot Framework and dependencies
-  # - script: |
-  #     python -m venv venv
-  #     call .\venv\Scripts\activate && pip install --upgrade pip
-  #     pip install robotframework
-  #     pip install robotframework-seleniumlibrary
-  #     pip install robotframework-csvlibrary  
-  #   displayName: 'Install Robot Framework & Dependencies'
-
-  # # Install Chrome & ChromeDriver using PowerShell
-  # - powershell: |
-  #     # Define ChromeDriver version and download URL
-  #     $chromeDriverVersion = "134.0.6998.35"
-  #     $downloadUrl = "https://chromedriver.storage.googleapis.com/$chromeDriverVersion/chromedriver_win32.zip"
-      
-  #     # Download ChromeDriver zip
-  #     Invoke-WebRequest -Uri $downloadUrl -OutFile "C:\ChromeDriver\chromedriver.zip"
-
-  #     # Expand the zip file
-  #     Expand-Archive -Path "C:\ChromeDriver\chromedriver.zip" -DestinationPath "C:\ChromeDriver"
-
-  #     # Add ChromeDriver to PATH
-  #     [System.Environment]::SetEnvironmentVariable("PATH", "$env:PATH;C:\ChromeDriver", [System.EnvironmentVariableTarget]::Machine)
-
-  #     echo "ChromeDriver installed successfully."
-  #   displayName: 'Download and Install ChromeDriver v134.0.6998.35'
-
-  # # List files in the test directory for debugging purposes
-  # - script: |
-  #     echo "Checking test directory and files..."
-  #     dir test
-  #   displayName: 'Debug: List Test Files'
-
-  # # Run Robot Framework tests
-  # - script: |
-  #     call .\venv\Scripts\activate && python -m robot --console verbose test/
-  #   displayName: 'Run All Robot Framework Test Cases'
