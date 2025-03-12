@@ -91,16 +91,9 @@ steps:
   
 
   - script: |
-          REM Activate the virtual environment for Windows
-          call .\venv\Scripts\activate
-          
-          REM Install required dependencies
-          pip install robotframework robotframework-seleniumlibrary selenium
-          
-          REM Run Robot Framework tests
-          python -m robot --console verbose test/
+      call .\venv\Scripts\activate && python -m robot --console verbose test/
     displayName: 'Run All Robot Framework Test Cases'
-        
+  
   - script: |
           echo "Robot Framework tests have completed."
     displayName: 'Post Test Actions'
