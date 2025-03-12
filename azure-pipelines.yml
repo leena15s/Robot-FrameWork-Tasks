@@ -108,6 +108,11 @@ steps:
   - checkout: self
     displayName: 'Checkout Code'
  
+   # Check current working directory
+  - script: |
+      echo "Current working directory: %CD%"
+    displayName: 'Check Current Directory'
+
   - script: |
       echo "Installing Python 3.9"
       choco install python --version 3.9 -y
@@ -124,23 +129,31 @@ steps:
   - script: |
       choco install googlechrome chromedriver -y
     displayName: 'Install Chrome & ChromeDriver'
- 
-  # - script: |
-  #     echo "Checking test directory and files..."
-  #     dir test
-  #   displayName: 'Debug: List Test Files'
-  
-   # List files in the test directory for debugging purposes
+  # List the contents of the repository to confirm if the 'Tests' folder is there
   - script: |
-      echo "Current working directory: %CD%"
-      echo "Checking if 'test' directory exists..."
-      if exist "test" (
-          echo "Listing files in 'test' directory:"
-          dir test
-      ) else (
-          echo "'test' directory not found."
-      )
+      echo "Listing contents of the current directory:"
+      dir .
+      echo "Listing contents of the Tests directory:"
+      dir .\Tests
+    displayName: 'List Directory Contents'
+
+  # List files in the 'Tests' directory for debugging
+  - script: |
+      echo "Listing files in the 'Tests' directory:"
+      dir .\Tests
     displayName: 'Debug: List Test Files'
+
+  #  # List files in the test directory for debugging purposes
+  # - script: |
+  #     echo "Current working directory: %CD%"
+  #     echo "Checking if 'test' directory exists..."
+  #     if exist "test" (
+  #         echo "Listing files in 'test' directory:"
+  #         dir test
+  #     ) else (
+  #         echo "'test' directory not found."
+  #     )
+  #   displayName: 'Debug: List Test Files'
   
   - script: |
       call .\venv\Scripts\activate && python -m robot --console verbose test/
