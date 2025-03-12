@@ -104,119 +104,109 @@ trigger:
 pool:
   name: agent3  
  
-# steps:
-#   - checkout: self
-#     displayName: 'Checkout Code'
+steps:
+  - checkout: self
+    displayName: 'Checkout Code'
  
-#    # Check current working directory
-#   - script: |
-#       echo "Current working directory: %CD%"
-#     displayName: 'Check Current Directory'
+   # Check current working directory
+  - script: |
+      echo "Current working directory: %CD%"
+    displayName: 'Check Current Directory'
 
-#   - script: |
-#       echo "Installing Python 3.9"
-#       choco install python --version 3.9 -y
-#     displayName: 'Install Python'
+  - script: |
+      echo "Installing Python 3.9"
+      choco install python --version 3.9 -y
+    displayName: 'Install Python'
  
-#   - script: |
-#       python -m venv venv
-#       call .\venv\Scripts\activate && pip install --upgrade pip
-#       pip install robotframework
-#       pip install robotframework-seleniumlibrary
-#       pip install robotframework-csvlibrary  
-#     displayName: 'Install Robot Framework & Dependencies'
+  - script: |
+      python -m venv venv
+      call .\venv\Scripts\activate && pip install --upgrade pip
+      pip install robotframework
+      pip install robotframework-seleniumlibrary
+      pip install robotframework-csvlibrary  
+      pip install -r requirements.txt
+
+    displayName: 'Install Robot Framework & Dependencies'
  
-#   - script: |
-#       choco install googlechrome chromedriver -y
-#     displayName: 'Install Chrome & ChromeDriver'
-#   # List the contents of the repository to confirm if the 'Tests' folder is there
-#   - script: |
-#       echo "Listing contents of the current directory:"
-#       dir .
-#       echo "Listing contents of the Tests directory:"
-#       dir .\Tests
-#     displayName: 'List Directory Contents'
+  - script: |
+      choco install googlechrome chromedriver -y
+    displayName: 'Install Chrome & ChromeDriver'
 
-#   # List files in the 'Tests' directory for debugging
-#   - script: |
-#       echo "Listing files in the 'Tests' directory:"
-#       dir .\Tests
-#     displayName: 'Debug: List Test Files'
 
-#   #  # List files in the test directory for debugging purposes
-#   # - script: |
-#   #     echo "Current working directory: %CD%"
-#   #     echo "Checking if 'test' directory exists..."
-#   #     if exist "test" (
-#   #         echo "Listing files in 'test' directory:"
-#   #         dir test
-#   #     ) else (
-#   #         echo "'test' directory not found."
-#   #     )
-#   #   displayName: 'Debug: List Test Files'
+  # List the contents of the repository to confirm if the 'Tests' folder is there
+  - script: |
+      echo "Listing contents of the current directory:"
+      dir .
+      echo "Listing contents of the Tests directory:"
+      dir .\Tests
+    displayName: 'List Directory Contents'
+
+  # List files in the 'Tests' directory for debugging
+  - script: |
+      echo "Listing files in the 'Tests' directory:"
+      dir .\Tests
+    displayName: 'Debug: List Test Files'
+
+  - script: |
+       call venv\Scripts\activate 
+       robot -d results AE/Tests
+    displayName: 'Run All Tests'
   
-#   - script: |
-#       call .\venv\Scripts\activate && python -m robot --console verbose test/
-#     displayName: 'Run All Robot Framework Test Cases'
- 
+  #  # List files in the test directory for debugging purposes
+  # - script: |
+  #     echo "Current working directory: %CD%"
+  #     echo "Checking if 'test' directory exists..."
+  #     if exist "test" (
+  #         echo "Listing files in 'test' directory:"
+  #         dir test
+  #     ) else (
+  #         echo "'test' directory not found."
+  #     )
+  #   displayName: 'Debug: List Test Files'
   
-stages:
-- stage: Setup
-  displayName: 'Setup Environment'
-  jobs:
-  - job: InstallDependencies
-    displayName: 'Install and Cache Dependencies'
-    steps:
-    - checkout: self  # جلب الكود من GitHub
+  # - script: |
+  #     call .\venv\Scripts\activate && python -m robot --console verbose test/
+  #   displayName: 'Run All Robot Framework Test Cases'
+
+
+  
+# stages:
+# - stage: Setup
+#   displayName: 'Setup Environment'
+#   jobs:
+#   - job: InstallDependencies
+#     displayName: 'Install and Cache Dependencies'
+#     steps:
+#     - checkout: self  # جلب الكود من GitHub
+
+
+#     - script: |
+#         call venv\Scripts\activate
+#         pip install -r requirements.txt
+#       condition: ne(variables.CACHE_RESTORED, 'true')
+#       displayName: 'Install Dependencies if Cache Miss'
  
-    - script: |
-        python --version
-      displayName: 'Verify Python Installation'
+# - stage: Test
+#   displayName: 'Run All Tests'
+#   dependsOn: Setup
+#   jobs:
+#   - job: RunAllTests
+#     displayName: 'Execute All Robot Framework Tests'
+#     steps:
+#     - script: |
+#         call venv\Scripts\activate
+#         robot -d results AE/Tests
+#       displayName: 'Run All Tests'
  
-    - script: |
-        python -m venv venv
-      displayName: 'Create Virtual Environment'
- 
-    - script: |
-        call venv\Scripts\activate
-        curl -sS https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-        python get-pip.py
-      displayName: 'Install Pip using get-pip.py'
- 
-    - task: Cache@2
-      inputs:
-        key: 'python | "$(Agent.OS)" | requirements.txt'
-        path: 'venv'
-        cacheHitVar: CACHE_RESTORED
-      displayName: 'Cache Python Dependencies'
- 
-    - script: |
-        call venv\Scripts\activate
-        pip install -r requirements.txt
-      condition: ne(variables.CACHE_RESTORED, 'true')
-      displayName: 'Install Dependencies if Cache Miss'
- 
-- stage: Test
-  displayName: 'Run All Tests'
-  dependsOn: Setup
-  jobs:
-  - job: RunAllTests
-    displayName: 'Execute All Robot Framework Tests'
-    steps:
-    - script: |
-        call venv\Scripts\activate
-        robot -d results AE/Tests
-      displayName: 'Run All Tests'
- 
-- stage: Deploy
-  displayName: 'Save and Publish Test Results'
-  dependsOn: Test
-  condition: succeeded()
-  jobs:
-  - job: PublishResults
-    displayName: 'Publish Test Artifacts'
-    steps:
-    - publish: $(System.DefaultWorkingDirectory)/results
-      artifact: test-results
-      displayName: 'Save Test Results'
+# - stage: Deploy
+#   displayName: 'Save and Publish Test Results'
+#   dependsOn: Test
+#   condition: succeeded()
+#   jobs:
+#   - job: PublishResults
+#     displayName: 'Publish Test Artifacts'
+#     steps:
+#     - publish: $(System.DefaultWorkingDirectory)/results
+#       artifact: test-results
+#       displayName: 'Save Test Results'
  
