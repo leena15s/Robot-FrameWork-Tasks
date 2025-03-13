@@ -1,0 +1,44 @@
+trigger:
+  - master
+ 
+pool:
+  name: agent3  
+ 
+steps:
+  - checkout: self
+    displayName: 'Checkout Code'
+ 
+  - script: |
+      echo "Installing Python 3.9"
+      choco install python --version 3.9 -y
+    displayName: 'Install Python'
+ 
+  - script: |
+      python -m venv venv
+      call .\venv\Scripts\activate && pip install --upgrade pip
+      pip install robotframework
+      pip install robotframework-seleniumlibrary
+      pip install robotframework-csvlibrary  
+    displayName: 'Install Robot Framework & Dependencies'
+ 
+  - script: |
+      choco install googlechrome chromedriver -y
+    displayName: 'Install Chrome & ChromeDriver'
+ 
+   # List files in the test directory for debugging purposes
+  - script: |
+      echo "Current working directory: %CD%"
+      echo "Checking if 'test' directory exists..."
+      if exist "test" (
+          echo "Listing files in 'test' directory:"
+          dir test
+      ) else (
+          echo "'test' directory not found."
+      )
+    displayName: 'Debug: List Test Files'
+  
+  - script: |
+     echo %CD%  # On Windows
+     call .\venv\Scripts\activate && python -m robot --console verbose Tests\Test.robot
+    displayName: 'Run All Robot Framework Test Cases'
+
